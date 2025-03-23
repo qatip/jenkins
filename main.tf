@@ -1,11 +1,11 @@
 provider "google" {
-  project = "<your-lab-project-id>"  # Replace with your GCP project ID
+  project = "qatipv3"  # Replace with your GCP project ID
   region  = "us-west1"            # Replace with your desired GCP region
 }
 
 terraform {
   backend "gcs" {
-    bucket  = "<your-state-bucket>"  # Replace with the name of your GCS bucket
+    bucket  = "jenkins-state-demo"  # Replace with the name of your GCS bucket
     prefix  = "terraform/state"    # The folder path in the bucket
   }
 }
