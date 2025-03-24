@@ -21,7 +21,7 @@ provider "google" {
 # project = "qatipv3"
 #
 resource "google_compute_network" "lab_vpc" {
- name                    = "lab-vpc2"
+ name                    = "lab-vpc3"
  auto_create_subnetworks = false
 }
 #
