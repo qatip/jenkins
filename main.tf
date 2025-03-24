@@ -1,5 +1,5 @@
 provider "google" {
-  project = "qatipv3"  # Replace with your GCP project ID
+  project = "mcg-terraform"  # Replace with your GCP project ID
   region  = "us-west1"            # Replace with your desired GCP region
 }
 
