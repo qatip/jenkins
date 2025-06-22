@@ -3,7 +3,7 @@ provider "aws" {
 }
 terraform {
   backend "s3" {
-    bucket         = "https://github.com/qatip/jenkins.git"   
+    bucket         = "jenkins-state-michael-2697"   
     key            = "terraform.tfstate"
     region         = "us-west-2"
     encrypt        = true
