@@ -5,7 +5,7 @@ terraform {
   backend "s3" {
     bucket         = "jenkins-state-michael-2697"   
     key            = "terraform.tfstate"
-    region         = "us-west-2"
+    region         = "eu-west-2"
     encrypt        = true
   }
 }
