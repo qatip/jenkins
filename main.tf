@@ -9,7 +9,7 @@ terraform {
 
 provider "azurerm" {
   features {}
-  subscription_id = "https://github.com/qatip/jenkins.git"
+  subscription_id = "1f44ea4b-eb32-4d3d-8338-798737453e40"
 }
 
 terraform {
