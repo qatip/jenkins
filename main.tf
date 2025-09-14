@@ -35,9 +35,9 @@ variable "admin_username"  {
   default = "azureuser" 
 }
 
-variable "allowed_ip_cidr" {
-  type = string 
-}                # pass from Jenkins
+variable "allowed_ip_cidrs" {
+  type = list(string)
+}
 
 variable "ssh_public_key"  {
   type = string
