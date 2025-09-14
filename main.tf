@@ -6,7 +6,12 @@ terraform {
       version = "4.16.0"
     }
   }
-  backend "azurerm" {}  # values come from backend.hcl at init
+  backend "azurerm" {
+    resource_group_name  = "RG1"
+    storage_account_name = "jenkinsstate6789"
+    container_name       = "terraform-state"
+    key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
