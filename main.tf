@@ -174,7 +174,9 @@ resource "azurerm_linux_virtual_machine" "vm1" {
     sku       = "22_04-lts"
     version   = "latest"
   }
-
+  tags = {
+    Notes = "Demo deployment"
+  }
   os_disk {
     name                 = "${var.name_prefix}-vm1-osdisk"
     caching              = "ReadWrite"
