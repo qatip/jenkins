@@ -20,11 +20,29 @@ provider "azurerm" {
   # ARM_SUBSCRIPTION_ID / ARM_TENANT_ID / ARM_CLIENT_ID / ARM_USE_OIDC= true
 }
 
-variable "location"        { type = string, default = "westeurope" }
-variable "name_prefix"     { type = string, default = "demo" }
-variable "admin_username"  { type = string, default = "azureuser" }
-variable "allowed_ip_cidr" { type = string }                # pass from Jenkins
-variable "ssh_public_key"  { type = string, sensitive = false } # PUBLIC key content
+variable "location"        { 
+  type = string
+  default = "westeurope" 
+}
+
+variable "name_prefix"     {
+  type = string
+  default = "demo" 
+}
+
+variable "admin_username"  {
+  type = string
+  default = "azureuser" 
+}
+
+variable "allowed_ip_cidr" {
+  type = string 
+}                # pass from Jenkins
+
+variable "ssh_public_key"  {
+  type = string
+  sensitive = false 
+} # PUBLIC key content
 
 resource "azurerm_resource_group" "rg" {
   name     = "RG2"
