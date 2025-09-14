@@ -39,7 +39,7 @@ pipeline {
             terraform validate
             terraform plan \
               -var "ssh_public_key=$SSH_PUB" \
-              -var "allowed_ip_cidr=${ALLOWED_IP_CIDR}" \
+              -var "allowed_ip_cidrs=${ALLOWED_IP_CIDRS}" \
               -out=tfplan
           '''
         }
