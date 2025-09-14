@@ -22,9 +22,9 @@ terraform {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "RG4"
+  name     = "RG2"
   location = "westeurope"
   tags = {
-    Notes = "FirstChange"
+    Notes = "demoe"
   }
 }
