@@ -81,6 +81,41 @@ resource "azurerm_network_security_group" "allow_from_me" {
   }
 }
 
+data "azurerm_virtual_network" "remote" {
+  name                = "demo-vnet"
+  resource_group_name = "RG4"
+}
+
+
+# Local -> Remote
+resource "azurerm_virtual_network_peering" "local_to_remote" {
+  name                      = "rg2-to-rg4"
+  resource_group_name       = azurerm_resource_group.rg.name
+  virtual_network_name      = azurerm_virtual_network.vnet.name
+  remote_virtual_network_id = data.azurerm_virtual_network.remote.id
+
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
+  use_remote_gateways          = false
+  allow_gateway_transit        = false
+}
+
+# Remote -> Local
+resource "azurerm_virtual_network_peering" "remote_to_local" {
+  name                      = "rg4-to-rg2"
+  resource_group_name       = "RG4"
+  virtual_network_name      = "demo-vnet"
+  remote_virtual_network_id = azurerm_virtual_network.vnet.id
+
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
+  use_remote_gateways          = false
+  allow_gateway_transit        = false
+}
+
+
+
+
 resource "azurerm_public_ip" "vm1_pip" {
   name                = "${var.name_prefix}-vm1-pip"
   location            = var.location
