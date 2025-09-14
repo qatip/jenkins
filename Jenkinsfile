@@ -6,7 +6,7 @@ pipeline {
     ARM_SUBSCRIPTION_ID = credentials('azure_subscription_id')
     ARM_TENANT_ID       = credentials('azure_tenant_id')
     TERRAFORM_VERSION   = "1.5.6"
-    ALLOWED_IP_CIDRS = '["109.147.125.164/32","108.143.120.41/32"]
+    ALLOWED_IP_CIDRS = '["109.147.125.164/32","108.143.120.41/32"]'
     
   }
   stages {
