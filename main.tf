@@ -79,6 +79,7 @@ resource "azurerm_network_security_group" "allow_from_me" {
     source_address_prefixes    = var.allowed_ip_cidrs 
     destination_address_prefix = "*"
   }
+
   security_rule {
     name                       = "Allow8080"
     priority                   = 110
@@ -87,7 +88,7 @@ resource "azurerm_network_security_group" "allow_from_me" {
     protocol                   = "*"
     source_port_range          = "*"
     destination_port_range     = "8080"
-    source_address_prefixes    = "*" 
+    source_address_prefix    = "*" 
     destination_address_prefix = "*"
   }
 
