@@ -89,7 +89,7 @@ data "azurerm_virtual_network" "remote" {
 
 # Local -> Remote
 resource "azurerm_virtual_network_peering" "local_to_remote" {
-  name                      = "rg2torg4"
+  name                      = "rg2-to-rg4"
   resource_group_name       = azurerm_resource_group.rg.name
   virtual_network_name      = azurerm_virtual_network.vnet.name
   remote_virtual_network_id = data.azurerm_virtual_network.remote.id
