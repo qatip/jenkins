@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Repository') {
+            steps {
+                // Clone the repository to the Jenkins workspace
+                checkout scm
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                withCredentials([file(credentialsId: 'gcp-svc-acct', variable: 'GOOGLE_CLOUD_KEYFILE_JSON')]) {
+                    sh '''
+                    export GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_CLOUD_KEYFILE_JSON
+                    terraform init
+                    '''
+                }
+            }
+        }
+        stage('Destroy') {
+            steps {
+                dir('./') { // Ensure the correct directory is used
+                    // Manual approval prompt
+                    input message: "Are you sure you want to destroy the resources?", ok: "Yes, Destroy"
+                    withCredentials([file(credentialsId: 'gcp-svc-acct', variable: 'GOOGLE_CLOUD_KEYFILE_JSON')]) {
+                    sh '''
+                    export GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_CLOUD_KEYFILE_JSON
+                    terraform destroy -auto-approve -lock=false
+                    '''
+                    }
+                }
+            }
+        }
+    }
+}
