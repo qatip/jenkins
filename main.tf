@@ -45,7 +45,7 @@ variable "ssh_public_key_path" {
 # Set to YOUR public IP /32 (e.g. "203.0.113.4/32")
 variable "allowed_ip_cidr" {
   type    = string
-  default = "109.147.125.164/32"
+  default = "86.157.163.211/32"
 }
 
 # VM size (policy-friendly)
