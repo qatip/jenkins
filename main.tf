@@ -3,56 +3,30 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 3.107.0"
+      version = "4.16.0"
     }
   }
+  # optional: add backend "azurerm" {} if you use remote state
 }
 
 provider "azurerm" {
   features {}
-  subscription_id = var.sub-id
+  # Do not hardcode subscription_id; Jenkins ARM_* env vars handle auth/target sub
 }
 
 #########################
-# Variables (edit these)
+# Variables
 #########################
-variable "sub-id" {
-  type = string
-  default = "316f0ed4-2796-4561-a734-24b156826ae5"
+variable "location"       { type = string, default = "westeurope" }
+variable "name_prefix"    { type = string, default = "demo" }
+variable "admin_username" { type = string, default = "azureuser" }
+variable "vm_size"        { type = string, default = "Standard_B2s" }
 
-}
+# matches Jenkins: JSON list '["<your_ip>/32","<awx_ip>/32"]'
+variable "allowed_ip_cidrs" { type = list(string) }
 
-variable "location" {
-  type    = string
-  default = "westeurope"
-}
-
-variable "name_prefix" {
-  type    = string
-  default = "demo"
-}
-
-variable "admin_username" {
-  type    = string
-  default = "azureuser"
-}
-
-variable "ssh_public_key_path" {
-  type    = string
-  default = "~/.ssh/azure_automation_rsa.pub"
-}
-
-# Set to YOUR public IP /32 (e.g. "203.0.113.4/32")
-variable "allowed_ip_cidr" {
-  type    = string
-  default = "86.157.163.211/32"
-}
-
-# VM size (policy-friendly)
-variable "vm_size" {
-  type    = string
-  default = "Standard_B2s"
-}
+# matches Jenkins: public key CONTENT, not a file path
+variable "ssh_public_key"   { type = string }
 
 #########################
 # Resource Group & Net
@@ -77,29 +51,28 @@ resource "azurerm_subnet" "subnet" {
 }
 
 #########################
-# One NSG for both VMs
+# NSG
 #########################
 resource "azurerm_network_security_group" "allow_from_me" {
   name                = "${var.name_prefix}-allow-from-me-nsg"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  # Allow ALL inbound from *your* IP (smoke-test convenience)
   security_rule {
-    name                       = "AllowAllFromMyIP"
+    name                       = "AllowFromApprovedIPs"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "*"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = var.allowed_ip_cidr
+    source_address_prefixes    = var.allowed_ip_cidrs   # <-- list
     destination_address_prefix = "*"
   }
 }
 
 #########################
-# VM1 (Ubuntu, public IP)
+# VM
 #########################
 resource "azurerm_public_ip" "vm1_pip" {
   name                = "${var.name_prefix}-vm1-pip"
@@ -137,7 +110,7 @@ resource "azurerm_linux_virtual_machine" "vm1" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = var.ssh_public_key
+    public_key = var.ssh_public_key   # <-- content, not file()
   }
 
   source_image_reference {
@@ -153,4 +126,3 @@ resource "azurerm_linux_virtual_machine" "vm1" {
     storage_account_type = "Standard_LRS"
   }
 }
-
