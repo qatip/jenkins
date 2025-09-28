@@ -6,7 +6,15 @@ terraform {
       version = "4.16.0"
     }
   }
-  # optional: add backend "azurerm" {} if you use remote state
+
+  backend "azurerm" {
+    resource_group_name  = "RG1"
+    storage_account_name = "jenkinsstate6789"
+    container_name       = "terraform-state"
+    key                  = "vm/dev.tfstate"  # pick a unique key per env
+  }
+
+# optional: add backend "azurerm" {} if you use remote state
 }
 
 provider "azurerm" {
