@@ -6,7 +6,7 @@ pipeline {
     ARM_SUBSCRIPTION_ID = credentials('azure_subscription_id')
     ARM_TENANT_ID       = credentials('azure_tenant_id')
     TERRAFORM_VERSION   = "1.5.6"
-    ALLOWED_IP_CIDRS = '["86.157.163.211/32","108.143.71.24/32"]'
+    ALLOWED_IP_CIDRS = '["0.0.0.0/0"]'
     
   }
   stages {
@@ -57,5 +57,6 @@ pipeline {
     failure { echo 'Pipeline failed. Check logs.' }
   }
 }
+
 
 
