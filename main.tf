@@ -13,8 +13,6 @@ terraform {
     container_name       = "terraform-state"
     key                  = "vm/dev.tfstate"  # pick a unique key per env
   }
-
-# optional: add backend "azurerm" {} if you use remote state
 }
 
 provider "azurerm" {
