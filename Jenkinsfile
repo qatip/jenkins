@@ -51,10 +51,6 @@ PY
             # Provide the path to the public key file to Terraform
             export TF_VAR_ssh_public_key_path="$PUBKEY_FILE"
 
-            # If the job variable isn't set in the UI, default to open (change as needed)
-            ALLOWED_JSON='${ALLOWED_IP_CIDRS}'
-            [ -z "$ALLOWED_JSON" ] && ALLOWED_JSON='["0.0.0.0/0"]'
-
            terraform init -input=false -reconfigure
            terraform validate
            terraform plan -out=tfplan
@@ -70,4 +66,5 @@ PY
     failure { echo 'Pipeline failed. Check logs.' }
   }
 }
+
 
