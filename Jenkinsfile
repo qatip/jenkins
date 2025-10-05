@@ -55,11 +55,10 @@ PY
             ALLOWED_JSON='${ALLOWED_IP_CIDRS}'
             [ -z "$ALLOWED_JSON" ] && ALLOWED_JSON='["0.0.0.0/0"]'
 
-            terraform init -input=false -reconfigure
-            terraform validate
-            terraform plan -out=tfplan \
-              -var "allowed_ip_cidrs=${ALLOWED_JSON}"
-            terraform apply -auto-approve tfplan
+           terraform init -input=false -reconfigure
+           terraform validate
+           terraform plan -out=tfplan
+           terraform apply -auto-approve tfplan
           '''
         }
       }
@@ -71,3 +70,4 @@ PY
     failure { echo 'Pipeline failed. Check logs.' }
   }
 }
+
