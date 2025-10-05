@@ -8,7 +8,7 @@ terraform {
   }
 
   backend "azurerm" {
-    resource_group_name  = "RG1"
+    resource_group_name  = "RG2"
     storage_account_name = "jenkinsstate6789"
     container_name       = "terraform-state"
     key                  = "vm/dev.tfstate"  # pick a unique key per env
