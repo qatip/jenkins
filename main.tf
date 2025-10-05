@@ -50,7 +50,7 @@ variable "ssh_public_key_path" { type = string }
 # Resource Group & Net
 #########################
 resource "azurerm_resource_group" "rg" {
-  name     = "RG2"
+  name     = "RG3"
   location = var.location
 }
 
