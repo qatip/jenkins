@@ -40,8 +40,16 @@ type = string
 default = "Standard_B2s" 
 }
 
+variable "allowed_ip_cidrs" {
+  type    = list(string)
+  default = ["0.0.0.0/0","0.0.0.0/0"]
+}
+
 # matches Jenkins: JSON list '["<your_ip>/32","<awx_ip>/32"]'
-variable "allowed_ip_cidrs" { type = list(string) }
+variable "allowed_ip_cidrs" {
+type = list(string) 
+defaulr 
+}
 
 # matches Jenkins: public key CONTENT, not a file path
 variable "ssh_public_key_path" { type = string }
