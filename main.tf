@@ -23,10 +23,22 @@ provider "azurerm" {
 #########################
 # Variables
 #########################
-variable "location"       { type = string, default = "westeurope" }
-variable "name_prefix"    { type = string, default = "demo" }
-variable "admin_username" { type = string, default = "azureuser" }
-variable "vm_size"        { type = string, default = "Standard_B2s" }
+variable "location"       {
+type = string
+default = "westeurope" 
+}
+variable "name_prefix"    {
+type = string
+default = "demo" 
+}
+variable "admin_username" {
+type = string
+default = "azureuser" 
+}
+variable "vm_size"        {
+type = string
+default = "Standard_B2s" 
+}
 
 # matches Jenkins: JSON list '["<your_ip>/32","<awx_ip>/32"]'
 variable "allowed_ip_cidrs" { type = list(string) }
